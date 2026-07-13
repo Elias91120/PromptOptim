@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+gunicorn
+pydantic[email]
+pydantic-settings
+python-multipart
+python-dotenv
+sqlalchemy[asyncio]
+asyncpg
+passlib[bcrypt]
+python-jose[cryptography]
+httpx
+aiosmtplib
+tiktoken
+slowapi
+pytest
+pytest-asyncio
