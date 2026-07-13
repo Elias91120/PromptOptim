@@ -6,9 +6,6 @@ RUN npm ci
 
 COPY . .
 
-ARG VITE_API_URL=https://api.prompt-optim.3geeks.fr
-ENV VITE_API_URL=$VITE_API_URL
-
 RUN npm run build
 
 FROM nginx:alpine
