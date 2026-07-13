@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// API Base URL (empty string for relative paths used with proxy/rewrites)
-const API_BASE_URL = '';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 // Create Axios instance
 const api = axios.create({
