@@ -32,7 +32,7 @@ def test_generate_prompt(client, mock_supabase):
 
         response = client.post("/api/generate", json={
             "input_text": "Write me an email",
-            "target_model": "mistral_large_3"
+            "target_model": "claude_sonnet_5"
         })
         assert response.status_code == 200
         body = response.json()
@@ -100,5 +100,5 @@ def test_stats_with_data(client, mock_supabase):
     assert body["total_prompts"] == 3
     assert body["total_tokens_saved"] == 35
     assert abs(body["total_co2_saved"] - 1.7) < 0.001
-    assert body["model_usage"]["mistral_large_3"] == 2
-    assert body["model_usage"]["gpt_5_6"] == 1
+    assert body["model_usage"]["composer_2_5"] == 2
+    assert body["model_usage"]["gpt_5_6_sol"] == 1

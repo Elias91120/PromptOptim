@@ -22,7 +22,7 @@ import { modelsAPI, promptAPI } from "@/lib/api";
 import type { AIModel, PromptResponse } from "@/lib/types";
 import { formatSmallNumber, getEcoColor } from "@/lib/utils";
 
-const DEFAULT_MODEL = "mistral_large_3";
+const DEFAULT_MODEL = "claude_sonnet_5";
 
 function GeneratorContent() {
   const [models, setModels] = useState<AIModel[]>([]);

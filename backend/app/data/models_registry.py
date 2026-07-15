@@ -52,76 +52,38 @@ def _json_response_instruction() -> str:
 
 MODELS: tuple[ModelDefinition, ...] = (
     ModelDefinition(
-        id="mistral_large_3",
-        name="Mistral Large 3",
-        provider="Mistral AI",
-        category="general",
-        description="France • Open Source • Souverain",
-        color="#ff7e00",
-        sovereignty=SovereigntyMeta(
-            score=100,
-            location="France (UE)",
-            company="Mistral AI (Francaise)",
-            license="Open Weights / Apache",
-            cloud_act_risk=False,
-            rgpd_compliant=True,
-        ),
-        green=GreenMeta(
-            energy_per_1k_tokens_kwh=0.002,
-            carbon_intensity_gco2_kwh=50,
-            water_intensity_ml_kwh=500,
-            datacenter_location="France",
-            tz_offset=1,
-        ),
-        hub_model="mistral-large-latest",
-        legacy_ids=("mistral_2",),
-        system_prompt=f"""
-You are a senior Prompt Engineer specializing in Mistral Large 3. Transform raw user intent into a production-ready, token-efficient prompt optimized for Mistral.
-
-MISTRAL LARGE 3 BEST PRACTICES:
-- Open with a sharp, domain-specific persona
-- Use simple Markdown: ### headers and - bullet points
-- Be explicit about output format (JSON / Markdown / list / prose)
-- Add concrete constraints (length, language, tone, forbidden items)
-- Remove filler words, politeness phrases, and redundancy
-- Prefer active voice and imperative mood
-- Quantify constraints explicitly (max N words, N bullet points)
-
-{_json_response_instruction()}
-""",
-    ),
-    ModelDefinition(
-        id="codestral_2",
-        name="Codestral 2",
-        provider="Mistral AI",
+        id="composer_2_5",
+        name="Composer 2.5",
+        provider="Cursor",
         category="code",
-        description="France • Code • Refactor",
-        color="#ff9500",
+        description="USA • Cursor • Code agent",
+        color="#39ff14",
         sovereignty=SovereigntyMeta(
-            score=100,
-            location="France (UE)",
-            company="Mistral AI (Francaise)",
-            license="Open Weights / Apache",
-            cloud_act_risk=False,
-            rgpd_compliant=True,
+            score=0,
+            location="USA",
+            company="Cursor (USA)",
+            license="Proprietaire",
+            cloud_act_risk=True,
+            rgpd_compliant=False,
         ),
         green=GreenMeta(
-            energy_per_1k_tokens_kwh=0.002,
-            carbon_intensity_gco2_kwh=50,
-            water_intensity_ml_kwh=500,
-            datacenter_location="France",
-            tz_offset=1,
+            energy_per_1k_tokens_kwh=0.003,
+            carbon_intensity_gco2_kwh=380,
+            water_intensity_ml_kwh=1600,
+            datacenter_location="USA",
+            tz_offset=-8,
         ),
-        hub_model="codestral-latest",
+        hub_model="gpt-4.1",
+        legacy_ids=("codestral_2", "o4_mini", "mistral_2", "mistral_large_3"),
         system_prompt=f"""
-You are a senior Prompt Engineer specializing in Codestral 2 for software development tasks. Transform raw user intent into a precise coding prompt.
+You are a senior Prompt Engineer specializing in Composer 2.5 for agentic coding tasks. Transform raw user intent into a precise, execution-ready coding prompt.
 
-CODESTRAL 2 BEST PRACTICES:
-- Specify target files, functions, or modules when inferable
-- Include stack hints (language, framework, test runner, linter)
+COMPOSER 2.5 BEST PRACTICES:
+- Lead with the exact coding task and expected outcome
+- Specify target files, functions, modules, and stack (language, framework, test runner)
 - Request minimal diffs or full file output explicitly
 - Add constraints: no breaking changes, preserve types, follow existing patterns
-- Include acceptance criteria and edge cases to handle
+- Include acceptance criteria, edge cases, and error handling expectations
 - Prefer structured sections: ## Context, ## Task, ## Constraints, ## Output Format
 - Remove vague language; use imperative verbs
 
@@ -129,46 +91,8 @@ CODESTRAL 2 BEST PRACTICES:
 """,
     ),
     ModelDefinition(
-        id="claude_sonnet_5",
-        name="Claude Sonnet 5",
-        provider="Anthropic",
-        category="general",
-        description="USA • Anthropic • Raisonnement",
-        color="#cc785c",
-        sovereignty=SovereigntyMeta(
-            score=0,
-            location="USA (Oregon)",
-            company="Anthropic (USA)",
-            license="Proprietaire",
-            cloud_act_risk=True,
-            rgpd_compliant=False,
-        ),
-        green=GreenMeta(
-            energy_per_1k_tokens_kwh=0.007,
-            carbon_intensity_gco2_kwh=380,
-            water_intensity_ml_kwh=1800,
-            datacenter_location="USA",
-            tz_offset=-8,
-        ),
-        hub_model="claude-sonnet-4-20250514",
-        legacy_ids=("claude_sonnet_4",),
-        system_prompt=f"""
-You are a senior Prompt Engineer specializing in Claude Sonnet 5. Transform raw user intent into a prompt leveraging Claude's strengths.
-
-CLAUDE SONNET 5 BEST PRACTICES:
-- Use XML tags systematically: <role>, <context>, <task>, <constraints>, <output_format>
-- Add <thinking> for analytical or multi-step tasks
-- Use <example> for non-trivial output formats
-- Avoid mixing Markdown headers inside XML
-- Remove filler words and politeness phrases
-- Be precise and verbose in constraints
-
-{_json_response_instruction()}
-""",
-    ),
-    ModelDefinition(
         id="claude_opus_4_8",
-        name="Claude Opus 4.8",
+        name="Opus 4.8",
         provider="Anthropic",
         category="general",
         description="USA • Anthropic • Complexe",
@@ -191,9 +115,9 @@ CLAUDE SONNET 5 BEST PRACTICES:
         hub_model="claude-opus-4-20250514",
         legacy_ids=("claude_opus", "claude_opus_4"),
         system_prompt=f"""
-You are a senior Prompt Engineer specializing in Claude Opus 4.8 for complex, high-stakes tasks. Transform raw user intent into a comprehensive prompt.
+You are a senior Prompt Engineer specializing in Opus 4.8 for complex, high-stakes tasks. Transform raw user intent into a comprehensive prompt.
 
-CLAUDE OPUS 4.8 BEST PRACTICES:
+OPUS 4.8 BEST PRACTICES:
 - Use XML structure: <role>, <context>, <task>, <constraints>, <output_format>, <quality_bar>
 - Decompose multi-step work into numbered phases
 - Add explicit success criteria and failure modes to avoid
@@ -204,11 +128,11 @@ CLAUDE OPUS 4.8 BEST PRACTICES:
 """,
     ),
     ModelDefinition(
-        id="gpt_5_6",
-        name="GPT-5.6",
+        id="gpt_5_6_sol",
+        name="GPT-5.6 Sol",
         provider="OpenAI",
         category="general",
-        description="USA • OpenAI • Structure",
+        description="USA • OpenAI • 1M context",
         color="#74aa9c",
         sovereignty=SovereigntyMeta(
             score=0,
@@ -226,27 +150,103 @@ CLAUDE OPUS 4.8 BEST PRACTICES:
             tz_offset=-5,
         ),
         hub_model="gpt-4.1",
-        legacy_ids=("gpt_5", "gpt_4_1"),
+        legacy_ids=("gpt_5", "gpt_4_1", "gpt_5_6"),
         system_prompt=f"""
-You are a senior Prompt Engineer specializing in GPT-5.6. Transform raw user intent into a production-ready prompt.
+You are a senior Prompt Engineer specializing in GPT-5.6 Sol with extended 1M context. Transform raw user intent into a production-ready prompt.
 
-GPT-5.6 BEST PRACTICES:
+GPT-5.6 SOL BEST PRACTICES:
 - Open with a sharp, domain-specific Persona
 - Separate sections with Markdown headers: ## Role, ## Context, ## Task, ## Constraints, ## Output Format
+- Leverage long context: reference documents, prior steps, or multi-file scope when relevant
 - Be explicit about output format — never leave it ambiguous
 - Add concrete constraints to prevent off-topic answers
-- If no context provided, invent a plausible professional scenario
 - Remove filler words and redundancy; prefer active voice
 
 {_json_response_instruction()}
 """,
     ),
     ModelDefinition(
-        id="o4_mini",
-        name="o4-mini",
+        id="fable_5",
+        name="Fable 5",
+        provider="Anthropic",
+        category="general",
+        description="USA • Anthropic • Narratif",
+        color="#d4a574",
+        sovereignty=SovereigntyMeta(
+            score=0,
+            location="USA (Oregon)",
+            company="Anthropic (USA)",
+            license="Proprietaire",
+            cloud_act_risk=True,
+            rgpd_compliant=False,
+        ),
+        green=GreenMeta(
+            energy_per_1k_tokens_kwh=0.008,
+            carbon_intensity_gco2_kwh=380,
+            water_intensity_ml_kwh=1800,
+            datacenter_location="USA",
+            tz_offset=-8,
+        ),
+        hub_model="claude-sonnet-4-20250514",
+        legacy_ids=("gemini_3_pro", "gemini_2_5_pro", "midjourney_v6", "flux_1_1"),
+        system_prompt=f"""
+You are a senior Prompt Engineer specializing in Fable 5 for narrative, creative, and long-form tasks. Transform raw user intent into an evocative, structured prompt.
+
+FABLE 5 BEST PRACTICES:
+- Establish tone, audience, and narrative voice upfront
+- Use XML tags: <role>, <setting>, <task>, <style>, <constraints>, <output_format>
+- For stories: specify arc, pacing, POV, and emotional beats
+- For creative content: include sensory details and stylistic references
+- Add length targets and forbidden tropes or clichés
+- Remove ambiguity about format (prose, script, dialogue, etc.)
+
+{_json_response_instruction()}
+""",
+    ),
+    ModelDefinition(
+        id="claude_sonnet_5",
+        name="Sonnet 5",
+        provider="Anthropic",
+        category="general",
+        description="USA • Anthropic • 1M context",
+        color="#cc785c",
+        sovereignty=SovereigntyMeta(
+            score=0,
+            location="USA (Oregon)",
+            company="Anthropic (USA)",
+            license="Proprietaire",
+            cloud_act_risk=True,
+            rgpd_compliant=False,
+        ),
+        green=GreenMeta(
+            energy_per_1k_tokens_kwh=0.007,
+            carbon_intensity_gco2_kwh=380,
+            water_intensity_ml_kwh=1800,
+            datacenter_location="USA",
+            tz_offset=-8,
+        ),
+        hub_model="claude-sonnet-4-20250514",
+        legacy_ids=("claude_sonnet_4",),
+        system_prompt=f"""
+You are a senior Prompt Engineer specializing in Sonnet 5 with extended 1M context. Transform raw user intent into a prompt leveraging Claude's strengths.
+
+SONNET 5 BEST PRACTICES:
+- Use XML tags systematically: <role>, <context>, <task>, <constraints>, <output_format>
+- Add <thinking> for analytical or multi-step tasks
+- Use <example> for non-trivial output formats
+- Leverage long context for multi-document or multi-step workflows
+- Avoid mixing Markdown headers inside XML
+- Remove filler words and politeness phrases
+
+{_json_response_instruction()}
+""",
+    ),
+    ModelDefinition(
+        id="gpt_5_6_terra",
+        name="GPT-5.6 Terra",
         provider="OpenAI",
-        category="code",
-        description="USA • OpenAI • Code rapide",
+        category="general",
+        description="USA • OpenAI • 1M context",
         color="#5a9a8c",
         sovereignty=SovereigntyMeta(
             score=0,
@@ -257,99 +257,23 @@ GPT-5.6 BEST PRACTICES:
             rgpd_compliant=False,
         ),
         green=GreenMeta(
-            energy_per_1k_tokens_kwh=0.004,
+            energy_per_1k_tokens_kwh=0.008,
             carbon_intensity_gco2_kwh=380,
             water_intensity_ml_kwh=1800,
             datacenter_location="USA",
             tz_offset=-5,
         ),
-        hub_model="o4-mini",
+        hub_model="gpt-4.1",
         system_prompt=f"""
-You are a senior Prompt Engineer specializing in o4-mini for fast coding and reasoning tasks. Transform raw user intent into a concise, high-signal coding prompt.
+You are a senior Prompt Engineer specializing in GPT-5.6 Terra with extended 1M context. Transform raw user intent into a grounded, structured prompt.
 
-O4-MINI BEST PRACTICES:
-- Lead with the exact coding task in one sentence
-- Specify language, framework, and file scope
-- Request step-by-step reasoning only when complexity requires it
-- Include test expectations and error handling requirements
-- Prefer bullet constraints over long prose
-- Output format: diff, snippet, or full file — always explicit
-
-{_json_response_instruction()}
-""",
-    ),
-    ModelDefinition(
-        id="gemini_2_5_pro",
-        name="Gemini 2.5 Pro",
-        provider="Google",
-        category="general",
-        description="USA • Google • Step-by-step",
-        color="#4285f4",
-        sovereignty=SovereigntyMeta(
-            score=0,
-            location="USA (Iowa)",
-            company="Google (USA)",
-            license="Proprietaire",
-            cloud_act_risk=True,
-            rgpd_compliant=False,
-        ),
-        green=GreenMeta(
-            energy_per_1k_tokens_kwh=0.006,
-            carbon_intensity_gco2_kwh=380,
-            water_intensity_ml_kwh=1800,
-            datacenter_location="USA",
-            tz_offset=-6,
-        ),
-        hub_model="gemini-2.5-pro",
-        legacy_ids=("gemini_3_pro",),
-        system_prompt=f"""
-You are a senior Prompt Engineer specializing in Google Gemini 2.5 Pro. Transform raw user intent into a clear, step-by-step prompt.
-
-GEMINI 2.5 PRO BEST PRACTICES:
-- Open with a clear Task statement, then numbered sub-steps
-- Be didactic: spell out what each step should produce
-- Add "Think step by step before answering" for complex reasoning
-- Specify exact output structure (numbered list, table, JSON, prose)
-- Ask for sources or examples when factual or comparative
-- Remove filler words and politeness phrases
-
-{_json_response_instruction()}
-""",
-    ),
-    ModelDefinition(
-        id="flux_1_1",
-        name="Flux 1.1",
-        provider="Black Forest Labs",
-        category="image",
-        description="EU • Image Gen • Photoreal",
-        color="#9c5cd4",
-        sovereignty=SovereigntyMeta(
-            score=60,
-            location="Allemagne (UE)",
-            company="Black Forest Labs (EU)",
-            license="Proprietaire",
-            cloud_act_risk=False,
-            rgpd_compliant=True,
-        ),
-        green=GreenMeta(
-            energy_per_1k_tokens_kwh=0.04,
-            carbon_intensity_gco2_kwh=120,
-            water_intensity_ml_kwh=800,
-            datacenter_location="EU",
-            tz_offset=1,
-        ),
-        hub_model=None,
-        legacy_ids=("midjourney_v6",),
-        system_prompt=f"""
-You are an expert AI image prompt engineer specializing in Flux 1.1. Translate the user's visual idea into a dense, production-ready image prompt.
-
-FLUX 1.1 BEST PRACTICES:
-- Write in English always. Comma-separated descriptive keywords — concise phrases.
-- Structure: [main subject], [environment], [lighting], [mood], [art style], [camera/lens], [technical quality]
-- Lighting: golden hour, dramatic side lighting, soft diffused, neon glow, chiaroscuro
-- Style: photorealistic, cinematic, editorial, concept art, watercolor, 8K render
-- Include negative cues inline: "no blurry, no watermark, no deformed hands"
-- Specify aspect ratio intent: portrait 9:16, landscape 16:9, square 1:1
+GPT-5.6 TERRA BEST PRACTICES:
+- Open with a clear Task statement and domain context
+- Use Markdown sections: ## Role, ## Context, ## Task, ## Constraints, ## Output Format
+- Emphasize factual grounding, citations, and verifiable claims when relevant
+- Specify step-by-step reasoning for analytical tasks
+- Add concrete output structure (table, JSON, numbered list, prose)
+- Remove filler words; prefer active voice and measurable constraints
 
 {_json_response_instruction()}
 """,
@@ -362,7 +286,7 @@ for _model in MODELS:
     for _legacy in _model.legacy_ids:
         _ALIAS_MAP[_legacy] = _model.id
 
-DEFAULT_MODEL_ID = "mistral_large_3"
+DEFAULT_MODEL_ID = "claude_sonnet_5"
 
 
 def resolve_model_id(model_id: str) -> str:
