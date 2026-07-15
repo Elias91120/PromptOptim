@@ -70,7 +70,7 @@ async def create_template(
         title=data.title,
         description=data.description,
         template_text=data.template_text,
-        target_model=data.target_model.value,
+        target_model=data.target_model,
         category=data.category,
         is_public=data.is_public,
     )

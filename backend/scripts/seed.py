@@ -16,7 +16,7 @@ DEMO_TEMPLATES = [
         "title": "Email professionnel",
         "description": "Template pour rédiger des emails formels",
         "template_text": "Rédige un email professionnel pour {sujet} destiné à {destinataire}.",
-        "target_model": "mistral_2",
+        "target_model": "mistral_large_3",
         "category": "business",
     },
     {
