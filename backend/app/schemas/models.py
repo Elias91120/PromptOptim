@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import BaseModel
 
 
@@ -21,5 +23,8 @@ class AIModelInfo(BaseModel):
     id: str
     name: str
     provider: str
+    category: Literal["general", "code", "image"]
+    description: str
+    color: str
     sovereignty: SovereigntyInfo
     green: GreenInfo

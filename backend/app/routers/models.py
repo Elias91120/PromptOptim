@@ -1,68 +1,36 @@
 from fastapi import APIRouter
-from app.schemas.models import AIModelInfo, SovereigntyInfo, GreenInfo
+
+from app.data.models_registry import list_models
+from app.schemas.models import AIModelInfo, GreenInfo, SovereigntyInfo
 
 router = APIRouter()
 
-_MODELS_DATA = [
-    AIModelInfo(
-        id="mistral_2", name="Mistral Large 2", provider="Mistral AI",
-        sovereignty=SovereigntyInfo(
-            score=100, location="France (UE)", company="Mistral AI (Francaise)",
-            license="Open Weights / Apache", cloud_act_risk=False, rgpd_compliant=True
-        ),
-        green=GreenInfo(
-            energy_per_1k_tokens_kwh=0.002, carbon_intensity_gco2_kwh=50,
-            water_intensity_ml_kwh=500, datacenter_location="France"
-        ),
-    ),
-    AIModelInfo(
-        id="gpt_5", name="GPT-5", provider="OpenAI",
-        sovereignty=SovereigntyInfo(
-            score=0, location="USA (Virginia)", company="OpenAI (USA)",
-            license="Proprietaire", cloud_act_risk=True, rgpd_compliant=False
-        ),
-        green=GreenInfo(
-            energy_per_1k_tokens_kwh=0.008, carbon_intensity_gco2_kwh=380,
-            water_intensity_ml_kwh=1800, datacenter_location="USA"
-        ),
-    ),
-    AIModelInfo(
-        id="claude_opus", name="Claude Opus", provider="Anthropic",
-        sovereignty=SovereigntyInfo(
-            score=0, location="USA (Oregon)", company="Anthropic (USA)",
-            license="Proprietaire", cloud_act_risk=True, rgpd_compliant=False
-        ),
-        green=GreenInfo(
-            energy_per_1k_tokens_kwh=0.008, carbon_intensity_gco2_kwh=380,
-            water_intensity_ml_kwh=1800, datacenter_location="USA"
-        ),
-    ),
-    AIModelInfo(
-        id="gemini_3_pro", name="Gemini 3 Pro", provider="Google",
-        sovereignty=SovereigntyInfo(
-            score=0, location="USA (Iowa)", company="Google (USA)",
-            license="Proprietaire", cloud_act_risk=True, rgpd_compliant=False
-        ),
-        green=GreenInfo(
-            energy_per_1k_tokens_kwh=0.006, carbon_intensity_gco2_kwh=380,
-            water_intensity_ml_kwh=1800, datacenter_location="USA"
-        ),
-    ),
-    AIModelInfo(
-        id="midjourney_v6", name="Midjourney V6", provider="Midjourney Inc",
-        sovereignty=SovereigntyInfo(
-            score=0, location="USA", company="Midjourney Inc (USA)",
-            license="Proprietaire", cloud_act_risk=True, rgpd_compliant=False
-        ),
-        green=GreenInfo(
-            energy_per_1k_tokens_kwh=0.05, carbon_intensity_gco2_kwh=380,
-            water_intensity_ml_kwh=1800, datacenter_location="USA"
-        ),
-    ),
-]
-
 
 @router.get("/models", response_model=list[AIModelInfo])
-async def list_models():
+async def list_models_endpoint():
     """List all supported AI models with sovereignty and green impact data. No auth required."""
-    return _MODELS_DATA
+    return [
+        AIModelInfo(
+            id=model.id,
+            name=model.name,
+            provider=model.provider,
+            category=model.category,
+            description=model.description,
+            color=model.color,
+            sovereignty=SovereigntyInfo(
+                score=model.sovereignty.score,
+                location=model.sovereignty.location,
+                company=model.sovereignty.company,
+                license=model.sovereignty.license,
+                cloud_act_risk=model.sovereignty.cloud_act_risk,
+                rgpd_compliant=model.sovereignty.rgpd_compliant,
+            ),
+            green=GreenInfo(
+                energy_per_1k_tokens_kwh=model.green.energy_per_1k_tokens_kwh,
+                carbon_intensity_gco2_kwh=model.green.carbon_intensity_gco2_kwh,
+                water_intensity_ml_kwh=model.green.water_intensity_ml_kwh,
+                datacenter_location=model.green.datacenter_location,
+            ),
+        )
+        for model in list_models()
+    ]

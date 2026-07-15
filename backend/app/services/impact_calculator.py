@@ -1,65 +1,8 @@
 import tiktoken
 from datetime import datetime, timezone
-from app.schemas.prompts import GreenData, SovereigntyData, Equivalences
 
-# Model metadata
-_MODEL_META = {
-    "gpt_5": {
-        "sovereignty_score": 0,
-        "location": "USA (Virginia)",
-        "company": "OpenAI (USA)",
-        "license": "Proprietaire",
-        "cloud_act_risk": True,
-        "carbon_intensity_gco2_kwh": 380,
-        "energy_per_1k_tokens_kwh": 0.008,
-        "water_intensity_ml_kwh": 1800,
-        "tz_offset": -5,
-    },
-    "claude_opus": {
-        "sovereignty_score": 0,
-        "location": "USA (Oregon)",
-        "company": "Anthropic (USA)",
-        "license": "Proprietaire",
-        "cloud_act_risk": True,
-        "carbon_intensity_gco2_kwh": 380,
-        "energy_per_1k_tokens_kwh": 0.008,
-        "water_intensity_ml_kwh": 1800,
-        "tz_offset": -8,
-    },
-    "gemini_3_pro": {
-        "sovereignty_score": 0,
-        "location": "USA (Iowa)",
-        "company": "Google (USA)",
-        "license": "Proprietaire",
-        "cloud_act_risk": True,
-        "carbon_intensity_gco2_kwh": 380,
-        "energy_per_1k_tokens_kwh": 0.006,
-        "water_intensity_ml_kwh": 1800,
-        "tz_offset": -6,
-    },
-    "mistral_2": {
-        "sovereignty_score": 100,
-        "location": "France (UE)",
-        "company": "Mistral AI (Francaise)",
-        "license": "Open Weights / Apache",
-        "cloud_act_risk": False,
-        "carbon_intensity_gco2_kwh": 50,
-        "energy_per_1k_tokens_kwh": 0.002,
-        "water_intensity_ml_kwh": 500,
-        "tz_offset": 1,
-    },
-    "midjourney_v6": {
-        "sovereignty_score": 0,
-        "location": "USA",
-        "company": "Midjourney Inc (USA)",
-        "license": "Proprietaire",
-        "cloud_act_risk": True,
-        "carbon_intensity_gco2_kwh": 380,
-        "energy_per_1k_tokens_kwh": 0.05,
-        "water_intensity_ml_kwh": 1800,
-        "tz_offset": -8,
-    },
-}
+from app.data.models_registry import get_model_or_legacy_meta, resolve_model_id
+from app.schemas.prompts import GreenData, SovereigntyData, Equivalences
 
 _ENCODER = tiktoken.get_encoding("cl100k_base")
 
@@ -91,9 +34,8 @@ def _eco_score(co2_saved_g: float) -> str:
 
 
 def calculate_green_impact(original_text: str, optimized_text: str, model_name: str) -> GreenData:
-    meta = _MODEL_META.get(model_name)
-    if meta is None:
-        raise ValueError(f"Unknown model: {model_name}")
+    model = get_model_or_legacy_meta(model_name)
+    meta = model.green
 
     tokens_original = _count_tokens(original_text)
     tokens_optimized = _count_tokens(optimized_text)
@@ -101,23 +43,14 @@ def calculate_green_impact(original_text: str, optimized_text: str, model_name: 
     if original_text.strip() == optimized_text.strip() or tokens_optimized == 0:
         tokens_saved = 0
     else:
-        # Better heuristic for Green IT impact:
-        # 1. 250 tokens bonus: Represents ~2-3 avoided follow-up prompts (refinement loop)
-        # 2. Complexity bonus: If the optimized prompt is much longer, it means we've
-        #    added significant structure that avoids human error/hallucination.
-        # We ensure tokens_saved is at least 50 to reflect the value of optimization.
         tokens_saved = max(50, 250 + tokens_original - tokens_optimized)
 
-    time_factor = _get_time_factor(meta["tz_offset"])
+    time_factor = _get_time_factor(meta.tz_offset)
 
-    energy_saved_kwh = (tokens_saved / 1000) * meta["energy_per_1k_tokens_kwh"] * time_factor
-    co2_saved_g = energy_saved_kwh * meta["carbon_intensity_gco2_kwh"]
-    water_saved_ml = energy_saved_kwh * meta["water_intensity_ml_kwh"]
+    energy_saved_kwh = (tokens_saved / 1000) * meta.energy_per_1k_tokens_kwh * time_factor
+    co2_saved_g = energy_saved_kwh * meta.carbon_intensity_gco2_kwh
+    water_saved_ml = energy_saved_kwh * meta.water_intensity_ml_kwh
 
-    # Equivalences — sources ADEME 2024 :
-    # Smartphone : 1 full charge ≈ 8.22 g CO2
-    # Electric car (French grid mix) : ≈ 20 g CO2/km
-    # LED bulb 8 W : ≈ 0.4 g CO2/h
     equivalences = Equivalences(
         smartphone_charges=round(co2_saved_g / 8.22, 4),
         km_electric_car=round(co2_saved_g / 20, 4),
@@ -137,13 +70,12 @@ def calculate_green_impact(original_text: str, optimized_text: str, model_name: 
 
 
 def get_sovereignty_data(model_name: str) -> SovereigntyData:
-    meta = _MODEL_META.get(model_name)
-    if meta is None:
-        raise ValueError(f"Unknown model: {model_name}")
+    model = get_model_or_legacy_meta(model_name)
+    sovereignty = model.sovereignty
     return SovereigntyData(
-        score=meta["sovereignty_score"],
-        location=meta["location"],
-        company=meta["company"],
-        license=meta["license"],
-        cloud_act_risk=meta["cloud_act_risk"],
+        score=sovereignty.score,
+        location=sovereignty.location,
+        company=sovereignty.company,
+        license=sovereignty.license,
+        cloud_act_risk=sovereignty.cloud_act_risk,
     )

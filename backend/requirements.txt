@@ -14,5 +14,6 @@ httpx
 aiosmtplib
 tiktoken
 slowapi
+alembic
 pytest
 pytest-asyncio

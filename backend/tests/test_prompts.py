@@ -32,7 +32,7 @@ def test_generate_prompt(client, mock_supabase):
 
         response = client.post("/api/generate", json={
             "input_text": "Write me an email",
-            "target_model": "mistral_2"
+            "target_model": "mistral_large_3"
         })
         assert response.status_code == 200
         body = response.json()
@@ -45,7 +45,7 @@ def test_generate_prompt(client, mock_supabase):
 def test_generate_input_too_long(client):
     response = client.post("/api/generate", json={
         "input_text": "x" * 4001,
-        "target_model": "mistral_2"
+        "target_model": "mistral_large_3"
     })
     assert response.status_code == 422
 

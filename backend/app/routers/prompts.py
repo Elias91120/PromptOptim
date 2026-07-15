@@ -29,15 +29,15 @@ async def generate_prompt(
     green_data = impact_calculator.calculate_green_impact(
         original_text=data.input_text,
         optimized_text=optimized_prompt,
-        model_name=data.target_model.value,
+        model_name=data.target_model,
     )
-    sovereignty_data = impact_calculator.get_sovereignty_data(data.target_model.value)
+    sovereignty_data = impact_calculator.get_sovereignty_data(data.target_model)
 
     history = PromptHistory(
         user_id=user.id,
         original_intent=data.input_text,
         optimized_prompt=optimized_prompt,
-        target_model=data.target_model.value,
+        target_model=data.target_model,
         green_data=green_data.model_dump(),
         sovereignty_data=sovereignty_data.model_dump(),
         ai_reasoning=reasoning,
@@ -55,7 +55,7 @@ async def generate_prompt(
     return PromptResponse(
         original_intent=data.input_text,
         optimized_prompt=optimized_prompt,
-        target_model=data.target_model.value,
+        target_model=data.target_model,
         green_data=green_data,
         sovereignty_data=sovereignty_data,
         ai_reasoning=reasoning,

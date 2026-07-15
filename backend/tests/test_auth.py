@@ -134,7 +134,10 @@ def test_models_public_endpoint(client_no_auth):
     response = client_no_auth.get("/api/models")
     assert response.status_code == 200
     data = response.json()
-    assert len(data) == 5
+    assert len(data) == 8
     ids = [m["id"] for m in data]
-    assert "mistral_2" in ids
-    assert "gpt_5" in ids
+    assert "mistral_large_3" in ids
+    assert "codestral_2" in ids
+    assert "gpt_4_1" in ids
+    categories = {m["category"] for m in data}
+    assert "code" in categories

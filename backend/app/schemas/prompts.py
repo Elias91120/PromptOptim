@@ -1,20 +1,20 @@
-from pydantic import BaseModel, ConfigDict, Field
-from enum import Enum
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from datetime import datetime
 from typing import Literal
 
-
-class ModelType(str, Enum):
-    GPT_5 = "gpt_5"
-    CLAUDE_OPUS = "claude_opus"
-    GEMINI_3_PRO = "gemini_3_pro"
-    MISTRAL_2 = "mistral_2"
-    MIDJOURNEY_V6 = "midjourney_v6"
+from app.data.models_registry import DEFAULT_MODEL_ID, is_valid_model, resolve_model_id
 
 
 class PromptRequest(BaseModel):
     input_text: str = Field(..., min_length=1, max_length=4000)
-    target_model: ModelType = ModelType.MISTRAL_2
+    target_model: str = DEFAULT_MODEL_ID
+
+    @field_validator("target_model")
+    @classmethod
+    def validate_target_model(cls, value: str) -> str:
+        if not is_valid_model(value):
+            raise ValueError(f"Unknown target model: {value}")
+        return resolve_model_id(value)
 
 
 class Equivalences(BaseModel):
