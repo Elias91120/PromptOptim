@@ -39,7 +39,7 @@ export function ModelPicker({ models, value, onChange, disabled }: ModelPickerPr
             className={cn(
               "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold min-h-11 transition-all cursor-pointer",
               filter === id
-                ? "bg-[var(--gradient-primary)] text-[var(--bg-primary)]"
+                ? "bg-gradient-primary text-on-primary"
                 : "border border-[var(--glass-border)] text-[var(--text-secondary)] hover:border-[var(--primary)]",
             )}
           >

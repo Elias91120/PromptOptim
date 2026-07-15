@@ -15,7 +15,7 @@ def test_sovereignty_legacy_mistral():
 
 
 def test_sovereignty_gpt():
-    data = get_sovereignty_data("gpt_4_1")
+    data = get_sovereignty_data("gpt_5_6")
     assert data.score == 0
     assert data.cloud_act_risk is True
 
@@ -41,7 +41,7 @@ def test_green_impact_no_savings():
 
 
 def test_green_impact_equivalences_non_negative():
-    result = calculate_green_impact("long text " * 50, "short", "gpt_4_1")
+    result = calculate_green_impact("long text " * 50, "short", "gpt_5_6")
     assert result.equivalences.smartphone_charges >= 0
     assert result.equivalences.km_electric_car >= 0
     assert result.equivalences.hours_led_bulb >= 0
@@ -61,9 +61,9 @@ def test_all_models_supported():
     for model in [
         "mistral_large_3",
         "codestral_2",
-        "claude_sonnet_4",
-        "claude_opus_4",
-        "gpt_4_1",
+        "claude_sonnet_5",
+        "claude_opus_4_8",
+        "gpt_5_6",
         "o4_mini",
         "gemini_2_5_pro",
         "flux_1_1",

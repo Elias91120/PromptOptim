@@ -100,5 +100,5 @@ def test_stats_with_data(client, mock_supabase):
     assert body["total_prompts"] == 3
     assert body["total_tokens_saved"] == 35
     assert abs(body["total_co2_saved"] - 1.7) < 0.001
-    assert body["model_usage"]["mistral_2"] == 2
-    assert body["model_usage"]["gpt_5"] == 1
+    assert body["model_usage"]["mistral_large_3"] == 2
+    assert body["model_usage"]["gpt_5_6"] == 1

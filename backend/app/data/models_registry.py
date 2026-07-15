@@ -129,8 +129,8 @@ CODESTRAL 2 BEST PRACTICES:
 """,
     ),
     ModelDefinition(
-        id="claude_sonnet_4",
-        name="Claude Sonnet 4",
+        id="claude_sonnet_5",
+        name="Claude Sonnet 5",
         provider="Anthropic",
         category="general",
         description="USA • Anthropic • Raisonnement",
@@ -151,10 +151,11 @@ CODESTRAL 2 BEST PRACTICES:
             tz_offset=-8,
         ),
         hub_model="claude-sonnet-4-20250514",
+        legacy_ids=("claude_sonnet_4",),
         system_prompt=f"""
-You are a senior Prompt Engineer specializing in Claude Sonnet 4. Transform raw user intent into a prompt leveraging Claude's strengths.
+You are a senior Prompt Engineer specializing in Claude Sonnet 5. Transform raw user intent into a prompt leveraging Claude's strengths.
 
-CLAUDE SONNET 4 BEST PRACTICES:
+CLAUDE SONNET 5 BEST PRACTICES:
 - Use XML tags systematically: <role>, <context>, <task>, <constraints>, <output_format>
 - Add <thinking> for analytical or multi-step tasks
 - Use <example> for non-trivial output formats
@@ -166,8 +167,8 @@ CLAUDE SONNET 4 BEST PRACTICES:
 """,
     ),
     ModelDefinition(
-        id="claude_opus_4",
-        name="Claude Opus 4",
+        id="claude_opus_4_8",
+        name="Claude Opus 4.8",
         provider="Anthropic",
         category="general",
         description="USA • Anthropic • Complexe",
@@ -188,11 +189,11 @@ CLAUDE SONNET 4 BEST PRACTICES:
             tz_offset=-8,
         ),
         hub_model="claude-opus-4-20250514",
-        legacy_ids=("claude_opus",),
+        legacy_ids=("claude_opus", "claude_opus_4"),
         system_prompt=f"""
-You are a senior Prompt Engineer specializing in Claude Opus 4 for complex, high-stakes tasks. Transform raw user intent into a comprehensive prompt.
+You are a senior Prompt Engineer specializing in Claude Opus 4.8 for complex, high-stakes tasks. Transform raw user intent into a comprehensive prompt.
 
-CLAUDE OPUS 4 BEST PRACTICES:
+CLAUDE OPUS 4.8 BEST PRACTICES:
 - Use XML structure: <role>, <context>, <task>, <constraints>, <output_format>, <quality_bar>
 - Decompose multi-step work into numbered phases
 - Add explicit success criteria and failure modes to avoid
@@ -203,8 +204,8 @@ CLAUDE OPUS 4 BEST PRACTICES:
 """,
     ),
     ModelDefinition(
-        id="gpt_4_1",
-        name="GPT-4.1",
+        id="gpt_5_6",
+        name="GPT-5.6",
         provider="OpenAI",
         category="general",
         description="USA • OpenAI • Structure",
@@ -225,11 +226,11 @@ CLAUDE OPUS 4 BEST PRACTICES:
             tz_offset=-5,
         ),
         hub_model="gpt-4.1",
-        legacy_ids=("gpt_5",),
+        legacy_ids=("gpt_5", "gpt_4_1"),
         system_prompt=f"""
-You are a senior Prompt Engineer specializing in GPT-4.1. Transform raw user intent into a production-ready prompt.
+You are a senior Prompt Engineer specializing in GPT-5.6. Transform raw user intent into a production-ready prompt.
 
-GPT-4.1 BEST PRACTICES:
+GPT-5.6 BEST PRACTICES:
 - Open with a sharp, domain-specific Persona
 - Separate sections with Markdown headers: ## Role, ## Context, ## Task, ## Constraints, ## Output Format
 - Be explicit about output format — never leave it ambiguous

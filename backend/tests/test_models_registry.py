@@ -17,8 +17,11 @@ def test_default_model():
 
 def test_resolve_legacy_aliases():
     assert resolve_model_id("mistral_2") == "mistral_large_3"
-    assert resolve_model_id("gpt_5") == "gpt_4_1"
-    assert resolve_model_id("claude_opus") == "claude_opus_4"
+    assert resolve_model_id("gpt_5") == "gpt_5_6"
+    assert resolve_model_id("gpt_4_1") == "gpt_5_6"
+    assert resolve_model_id("claude_opus") == "claude_opus_4_8"
+    assert resolve_model_id("claude_opus_4") == "claude_opus_4_8"
+    assert resolve_model_id("claude_sonnet_4") == "claude_sonnet_5"
     assert resolve_model_id("gemini_3_pro") == "gemini_2_5_pro"
     assert resolve_model_id("midjourney_v6") == "flux_1_1"
 

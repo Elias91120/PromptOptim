@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { modelsAPI, promptAPI } from "@/lib/api";
 import type { AIModel, PromptHistoryItem } from "@/lib/types";
 import { getEcoColor } from "@/lib/utils";
+import { resolveModelId } from "@/lib/models";
 
 function HistoryContent() {
   const [items, setItems] = useState<PromptHistoryItem[]>([]);
@@ -38,7 +39,7 @@ function HistoryContent() {
     );
   }, [items, search]);
 
-  const getModelName = (id: string) => models.find((m) => m.id === id)?.name ?? id;
+  const getModelName = (id: string) => models.find((m) => m.id === resolveModelId(id))?.name ?? id;
 
   return (
     <AppShell>
@@ -92,7 +93,7 @@ function HistoryRow({ item, modelName }: { item: PromptHistoryItem; modelName: s
           </div>
           {eco && (
             <span
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-[var(--bg-primary)] shrink-0"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-on-primary shrink-0"
               style={{ backgroundColor: getEcoColor(eco) }}
             >
               {eco}

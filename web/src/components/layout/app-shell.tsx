@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 import {
   ChartBar,
   ClockCounterClockwise,
-  Leaf,
   Lightning,
   List,
   SignOut,
   X,
 } from "@phosphor-icons/react";
 import { useAuth } from "@/components/providers/auth-provider";
+import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -54,9 +54,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         <div className="flex items-center justify-between h-[60px] px-5 md:px-8">
           <Link href="/generator" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-[var(--gradient-primary)] flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Leaf weight="fill" className="w-5 h-5 text-[var(--bg-primary)]" />
-            </div>
+            <Logo size="sm" className="group-hover:scale-105 transition-transform" />
             <span className="hidden sm:block text-base font-bold font-[family-name:var(--font-display)]">
               PromptOptim
             </span>
@@ -72,7 +70,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   className={cn(
                     "flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all min-h-11",
                     active
-                      ? "bg-[var(--gradient-primary)] text-[var(--bg-primary)] shadow-[var(--neon-glow-sm)]"
+                      ? "bg-gradient-primary text-on-primary shadow-[var(--neon-glow-sm)]"
                       : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5",
                   )}
                 >
@@ -155,9 +153,7 @@ export function AuthLayout({
     <div className="min-h-screen grid lg:grid-cols-2">
       <div className="hidden lg:flex flex-col justify-center p-12 border-r border-[var(--glass-border)]">
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-12 h-12 rounded-2xl bg-[var(--gradient-primary)] flex items-center justify-center">
-            <Leaf weight="fill" className="w-7 h-7 text-[var(--bg-primary)]" />
-          </div>
+          <Logo size="md" />
           <span className="text-2xl font-bold font-[family-name:var(--font-display)]">PromptOptim</span>
         </div>
         <h1 className="text-4xl font-bold leading-tight mb-4 font-[family-name:var(--font-display)]">{title}</h1>

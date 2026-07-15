@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.data.models_registry import is_valid_model, resolve_model_id
 from app.db.models import PromptHistory
 from app.db.session import get_db
 from app.dependencies import AuthUser, get_current_user
@@ -114,7 +115,11 @@ async def get_stats(
         total_tokens_saved += green.get("tokens_saved", 0)
         total_co2_saved += green.get("co2_saved_g", 0.0)
         model_name = model or "unknown"
-        model_usage[model_name] = model_usage.get(model_name, 0) + 1
+        if is_valid_model(model_name):
+            canonical = resolve_model_id(model_name)
+        else:
+            canonical = model_name
+        model_usage[canonical] = model_usage.get(canonical, 0) + 1
 
     return UserStatsResponse(
         total_prompts=total_prompts,

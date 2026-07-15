@@ -16,6 +16,10 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "PromptOptim — Green IT Prompt Engine",
   description: "Optimisez vos prompts IA avec impact écologique et souveraineté numérique.",
+  icons: {
+    icon: "/logo.svg",
+    apple: "/logo.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

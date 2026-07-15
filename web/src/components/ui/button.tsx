@@ -9,7 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-[var(--gradient-primary)] text-[var(--bg-primary)] shadow-[var(--neon-glow-sm)] hover:brightness-110",
+          "bg-gradient-primary text-on-primary shadow-[var(--neon-glow-sm)] hover:brightness-110",
         outline:
           "border border-[var(--glass-border)] bg-transparent text-[var(--text-primary)] hover:border-[var(--primary)] hover:bg-[var(--primary-dim)]",
         ghost:
