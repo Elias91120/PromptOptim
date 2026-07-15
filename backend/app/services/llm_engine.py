@@ -41,6 +41,9 @@ async def rewrite_prompt(user_intent: str, target_model: str) -> dict:
     if hub_model:
         payload["model"] = hub_model
 
+    payload["max_tokens"] = 800
+    payload["temperature"] = 0.3
+
     headers = {
         "Authorization": f"Bearer {settings.THREEGEEKS_API_KEY}",
         "Content-Type": "application/json",

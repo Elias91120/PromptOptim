@@ -8,7 +8,7 @@ from typing import Literal
 ModelCategory = Literal["general", "code", "image"]
 
 # Ollama models available on api.3geeks.fr (Mac Mini production).
-OLLAMA_GENERAL_MODEL = "phi4-mini:latest"
+OLLAMA_GENERAL_MODEL = "qwen2.5:3b-instruct"
 OLLAMA_CODE_MODEL = "qwen2.5-coder:7b-instruct"
 
 
