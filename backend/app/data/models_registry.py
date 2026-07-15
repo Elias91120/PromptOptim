@@ -7,6 +7,10 @@ from typing import Literal
 
 ModelCategory = Literal["general", "code", "image"]
 
+# Ollama models available on api.3geeks.fr (Mac Mini production).
+OLLAMA_GENERAL_MODEL = "phi4-mini:latest"
+OLLAMA_CODE_MODEL = "qwen2.5-coder:7b-instruct"
+
 
 @dataclass(frozen=True)
 class SovereigntyMeta:
@@ -73,7 +77,7 @@ MODELS: tuple[ModelDefinition, ...] = (
             datacenter_location="USA",
             tz_offset=-8,
         ),
-        hub_model="gpt-4.1",
+        hub_model=OLLAMA_CODE_MODEL,
         legacy_ids=("codestral_2", "o4_mini", "mistral_2", "mistral_large_3"),
         system_prompt=f"""
 You are a senior Prompt Engineer specializing in Composer 2.5 for agentic coding tasks. Transform raw user intent into a precise, execution-ready coding prompt.
@@ -112,7 +116,7 @@ COMPOSER 2.5 BEST PRACTICES:
             datacenter_location="USA",
             tz_offset=-8,
         ),
-        hub_model="claude-opus-4-20250514",
+        hub_model=OLLAMA_GENERAL_MODEL,
         legacy_ids=("claude_opus", "claude_opus_4"),
         system_prompt=f"""
 You are a senior Prompt Engineer specializing in Opus 4.8 for complex, high-stakes tasks. Transform raw user intent into a comprehensive prompt.
@@ -149,7 +153,7 @@ OPUS 4.8 BEST PRACTICES:
             datacenter_location="USA",
             tz_offset=-5,
         ),
-        hub_model="gpt-4.1",
+        hub_model=OLLAMA_GENERAL_MODEL,
         legacy_ids=("gpt_5", "gpt_4_1", "gpt_5_6"),
         system_prompt=f"""
 You are a senior Prompt Engineer specializing in GPT-5.6 Sol with extended 1M context. Transform raw user intent into a production-ready prompt.
@@ -187,7 +191,7 @@ GPT-5.6 SOL BEST PRACTICES:
             datacenter_location="USA",
             tz_offset=-8,
         ),
-        hub_model="claude-sonnet-4-20250514",
+        hub_model=OLLAMA_GENERAL_MODEL,
         legacy_ids=("gemini_3_pro", "gemini_2_5_pro", "midjourney_v6", "flux_1_1"),
         system_prompt=f"""
 You are a senior Prompt Engineer specializing in Fable 5 for narrative, creative, and long-form tasks. Transform raw user intent into an evocative, structured prompt.
@@ -225,7 +229,7 @@ FABLE 5 BEST PRACTICES:
             datacenter_location="USA",
             tz_offset=-8,
         ),
-        hub_model="claude-sonnet-4-20250514",
+        hub_model=OLLAMA_GENERAL_MODEL,
         legacy_ids=("claude_sonnet_4",),
         system_prompt=f"""
 You are a senior Prompt Engineer specializing in Sonnet 5 with extended 1M context. Transform raw user intent into a prompt leveraging Claude's strengths.
@@ -263,7 +267,7 @@ SONNET 5 BEST PRACTICES:
             datacenter_location="USA",
             tz_offset=-5,
         ),
-        hub_model="gpt-4.1",
+        hub_model=OLLAMA_GENERAL_MODEL,
         system_prompt=f"""
 You are a senior Prompt Engineer specializing in GPT-5.6 Terra with extended 1M context. Transform raw user intent into a grounded, structured prompt.
 

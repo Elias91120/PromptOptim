@@ -11,7 +11,7 @@ class Settings(BaseSettings):
 
     THREEGEEKS_API_BASE_URL: str = "https://api.3geeks.fr"
     THREEGEEKS_API_KEY: str = ""
-    THREEGEEKS_MODEL: str = ""
+    THREEGEEKS_MODEL: str = "phi4-mini:latest"
 
     SMTP_HOST: str = ""
     SMTP_PORT: int = 587

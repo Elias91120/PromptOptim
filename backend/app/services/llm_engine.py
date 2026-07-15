@@ -37,7 +37,7 @@ async def rewrite_prompt(user_intent: str, target_model: str) -> dict:
         ],
     }
 
-    hub_model = model_def.hub_model or settings.THREEGEEKS_MODEL
+    hub_model = settings.THREEGEEKS_MODEL or model_def.hub_model
     if hub_model:
         payload["model"] = hub_model
 

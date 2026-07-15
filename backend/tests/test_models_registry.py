@@ -57,4 +57,4 @@ def test_model_categories():
 def test_get_model_has_system_prompt():
     model = get_model("composer_2_5")
     assert "Composer" in model.system_prompt
-    assert model.hub_model == "gpt-4.1"
+    assert model.hub_model == "qwen2.5-coder:7b-instruct"
